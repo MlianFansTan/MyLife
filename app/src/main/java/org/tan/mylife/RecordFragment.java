@@ -6,26 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
- * Created by a on 2017/10/8.
+ * Created by a on 2017/10/9.
  */
 
-public class DiaryFragment extends Fragment {
+public class RecordFragment extends Fragment {
 
-    public DiaryFragment(){
+    public RecordFragment(){
 
     }
-
-    //替代构造函数的静态方法（预留）
-    /*public static DiaryFragment newInstance(String param1){
-        DiaryFragment fragment = new DiaryFragment();
-        Bundle args = new Bundle();
-        args.putString("args1",param1);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,8 +25,7 @@ public class DiaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_diary, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_record, container, false);
         return view;
     }
 }
