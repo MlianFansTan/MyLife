@@ -1,4 +1,4 @@
-package org.tan.mylife;
+package org.tan.mylife.diary;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,18 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.tan.mylife.R;
+
 /**
  * Created by a on 2017/10/8.
  */
 
-public class GTDFragment extends Fragment {
-    public GTDFragment(){
+public class DiaryFragment extends Fragment {
+
+    public DiaryFragment(){
 
     }
 
     //替代构造函数的静态方法（预留）
-    /*public static GTDFragment newInstance(String param1){
-        GTDFragment fragment = new GTDFragment();
+    /*public static DiaryFragment newInstance(String param1){
+        DiaryFragment fragment = new DiaryFragment();
         Bundle args = new Bundle();
         args.putString("args1",param1);
         fragment.setArguments(args);
@@ -34,7 +37,7 @@ public class GTDFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gtd, container, false);
+        View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         return view;
     }

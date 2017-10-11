@@ -11,11 +11,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+
+import org.tan.mylife.accumlateTime.AccumulateTimeFragment;
+import org.tan.mylife.diary.DiaryFragment;
+import org.tan.mylife.record.RecordFragment;
+import org.tan.mylife.tomato.TomatoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
