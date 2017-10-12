@@ -17,12 +17,15 @@ public class TimeItem extends DataSupport{
 
     private String itemMessage;     //每一项的描述
 
-    /*public TimeItem(String itemTitle, int minNums, String itemMessage, int id){
-        this.itemTitle = itemTitle;
-        this.itemMessage = itemMessage;
-        this.minNums = minNums;
-        this.id = id;
-    }*/
+    private int imageId;        //每一项用到的图片资源id
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
     public String getItemTitle() {
         return itemTitle;
@@ -55,4 +58,12 @@ public class TimeItem extends DataSupport{
     public void setMinNums(int minNums) {
         this.minNums = minNums;
     }
+
+    /*public TimeItem(String itemTitle, int minNums, String itemMessage, int id){
+        this.itemTitle = itemTitle;
+        this.itemMessage = itemMessage;
+        this.minNums = minNums;
+        this.id = id;
+    }*/
+
 }
