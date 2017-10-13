@@ -59,11 +59,12 @@ public class TimeItem extends DataSupport{
         this.minNums = minNums;
     }
 
-    /*public TimeItem(String itemTitle, int minNums, String itemMessage, int id){
+    public TimeItem(String itemTitle, int minNums, String itemMessage, int id, int imageId){
         this.itemTitle = itemTitle;
         this.itemMessage = itemMessage;
         this.minNums = minNums;
         this.id = id;
-    }*/
+        this.imageId = imageId;
+    }
 
 }
