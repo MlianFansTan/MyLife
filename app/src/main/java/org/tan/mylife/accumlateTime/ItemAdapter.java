@@ -2,6 +2,7 @@ package org.tan.mylife.accumlateTime;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {Log.d("Yes","com 8");
         TimeItem timeItem = mTimeItems.get(position);
         holder.itemTItle.setText(timeItem.getItemTitle());
         holder.itemMessage.setText(timeItem.getItemMessage());
@@ -71,9 +72,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     private String minToHour(int mins){
+        String str1 = null;
         float a = mins;
         float b = a/60;
-        String str1 = new  Float(b).toString().substring(0,4);
-        return str1;
+        str1 = Float.toString(b);
+        return padding(str1).substring(0,4);
+        //这里是用数学的方法得到结果，可能效率低一些
+        /*float c = ((float)Math.round(b*100))/100;
+        str1 = Float.toString(c);
+        return str1;*/
+    }
+
+    //这里补全字符串的函数，防止下标越界
+    private String padding(String str){
+        int length = str.length();
+        if(length < 4){
+            for(int i = 0; i < 3; i++)
+                str += "0";
+        }
+        return str;
     }
 }

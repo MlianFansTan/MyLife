@@ -3,6 +3,9 @@ package org.tan.mylife.accumlateTime;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,23 +24,24 @@ import java.util.List;
 
 public class AccumulateTimeFragment extends Fragment {
 
-    private List<TimeItem> timeItems;
+    private List<TimeItem> timeItems = new ArrayList<>();
+    RecyclerView recyclerView;
+    private ItemAdapter adapter;
 
     public AccumulateTimeFragment(){
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initItem();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initItem();
         View view = inflater.inflate(R.layout.fragment_accumlate, container, false);
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.accumulate_recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new ItemAdapter(timeItems);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -46,7 +50,8 @@ public class AccumulateTimeFragment extends Fragment {
         timeItems = DataSupport.findAll(TimeItem.class);
     }*/
     private void initItem(){
-        //TimeItem item1 =
+        timeItems.add(new TimeItem(1,"哈哈哈","哈哈哈",R.mipmap.sleeping, 50));
+        timeItems.add(new TimeItem(2,"呵呵呵","呵呵呵",R.mipmap.study, 60));
     }
     //替代构造函数的静态方法（预留）
     /*public static AccumulateTimeFragment newInstance(String param1){

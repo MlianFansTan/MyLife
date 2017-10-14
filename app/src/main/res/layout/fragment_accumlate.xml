@@ -6,15 +6,21 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#FF000000"
+        android:layout_height="6dp"
+        android:background="#87CEFA"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/accumulate_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-    </android.support.v7.widget.RecyclerView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="#87CEFA"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
