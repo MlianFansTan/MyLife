@@ -17,6 +17,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
+ * accumulateTimeFragment中RecyclerView的适配器类
  * Created by a on 2017/10/13.
  */
 
@@ -26,26 +27,43 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<TimeItem> mTimeItems;
 
+    //构造函数
+    public ItemAdapter(List<TimeItem> timeItems){
+        mTimeItems = timeItems;
+    }
+
+    //静态内部类ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder{
         CircleImageView itemImage;
 
-        TextView itemTItle;
+        TextView itemTitle;
 
         TextView itemMessage;
 
         TextView itemTime;
 
+        CircleImageView changImage;
+
         public ViewHolder(View view) {
             super(view);
             itemImage = (CircleImageView) view.findViewById(R.id.item_image);
-            itemTItle = (TextView) view.findViewById(R.id.item_title);
+            itemTitle = (TextView) view.findViewById(R.id.item_title);
             itemMessage = (TextView) view.findViewById(R.id.item_message);
             itemTime = (TextView) view.findViewById(R.id.item_time);
+            changImage = (CircleImageView) view.findViewById(R.id.change_view);
         }
     }
 
-    public ItemAdapter(List<TimeItem> timeItems){
-        mTimeItems = timeItems;
+    //留给调用方的代理函数
+    public interface OnItemClickListener{
+        //回调函数
+        void onClick(View view, int position);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setmOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -58,12 +76,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {Log.d("Yes","com 8");
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         TimeItem timeItem = mTimeItems.get(position);
-        holder.itemTItle.setText(timeItem.getItemTitle());
+        holder.itemTitle.setText(timeItem.getItemTitle());
         holder.itemMessage.setText(timeItem.getItemMessage());
         holder.itemTime.setText(minToHour(timeItem.getMinNums()));
         Glide.with(mContent).load(timeItem.getImageId()).into(holder.itemImage);
+        if (mOnItemClickListener != null){
+            holder.changImage.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onClick(v,position);
+                }
+            });
+        }
     }
 
     @Override

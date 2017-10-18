@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="3dp"/>
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -47,8 +48,17 @@
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/begin_end"
+                android:src="@drawable/begin_end"
                 android:layout_marginRight="3dp"/>
+
+            <!--<ImageButton
+                android:id="@+id/change_view"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/begin_end"/> -->
 
             <TextView
                 android:id="@+id/item_time"

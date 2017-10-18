@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .addItem(new BottomNavigationItem(R.mipmap.banana_pic,"积累").setActiveColorResource(R.color.blue).setInActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.mipmap.apple_pic,"番茄").setActiveColorResource(R.color.red).setInActiveColorResource(R.color.red))
                 .addItem(new BottomNavigationItem(R.mipmap.grape_pic,"记录").setActiveColorResource(R.color.purple).setInActiveColorResource(R.color.purple))
-                .addItem(new BottomNavigationItem(R.mipmap.watermelon_pic,"紧急").setActiveColorResource(R.color.pink).setInActiveColorResource(R.color.pink))
+                .addItem(new BottomNavigationItem(R.mipmap.watermelon_pic,"日记").setActiveColorResource(R.color.pink).setInActiveColorResource(R.color.pink))
                 .setFirstSelectedPosition(lastSelectedPosition)
                 .initialise();
 
