@@ -48,7 +48,7 @@
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/begin_end"
+                android:src="@drawable/start"
                 android:layout_marginRight="3dp"/>
 
             <!--<ImageButton

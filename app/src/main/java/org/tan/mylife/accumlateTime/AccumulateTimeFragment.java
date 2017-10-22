@@ -43,16 +43,16 @@ public class AccumulateTimeFragment extends Fragment {
 
     private Boolean isInService = false;        //服务是否正在运行的标志
     private int currentPosition;        //正在进行服务的项的position
-    private int time;
+    private int time;                   //服务停止时传入的累积时间
 
-    //与服务进行连接
+    //与服务进行连接的Binder
     private AccumulateTimeService.AccumulateBinder accumulateBinder;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d("Yes", "Binder绑定了！");
             accumulateBinder = (AccumulateTimeService.AccumulateBinder) service;
-            Log.d("Yes","被调用了！");
-            }
+        }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
@@ -62,11 +62,14 @@ public class AccumulateTimeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("Yes", "进入onCreateView方法");
         initItem();         //先从数据库拿到所有项的记录
+        Log.d("Yes", timeItems.get(1).getItemTitle());
 
         //绑定是异步执行的，所以要先进行绑定，防止binder空指针
         Intent bindIntent = new Intent(getActivity(), AccumulateTimeService.class);
         getActivity().bindService(bindIntent, connection, Context.BIND_AUTO_CREATE);
+        Log.d("Yes", "绑定完成");
 
         View view = inflater.inflate(R.layout.fragment_accumlate, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.accumulate_recycler);
@@ -78,10 +81,10 @@ public class AccumulateTimeFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 TimeItem t = timeItems.get(position);
-                Toast.makeText(getActivity(),t.getItemTitle(),Toast.LENGTH_SHORT).show();
-                Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"该项的position为："+String.valueOf(position));
-                Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"原来的时间为："+String.valueOf(t.getMinNums()));
-                Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"该项的id为："+String.valueOf(t.getId()));
+                //Toast.makeText(getActivity(),t.getItemTitle(),Toast.LENGTH_SHORT).show();
+                //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"该项的position为："+String.valueOf(position));
+                //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"原来的时间为："+String.valueOf(t.getMinNums()));
+                //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"该项的id为："+String.valueOf(t.getId()));
                 if (isInService == false){
                     accumulateBinder.startAccumulate(t.getItemTitle(),t.getImageId());
                     isInService = true;
@@ -89,11 +92,11 @@ public class AccumulateTimeFragment extends Fragment {
                     Glide.with(AccumulateTimeFragment.this).load(R.drawable.end).into((CircleImageView)view.findViewById(R.id.change_view));
                 }else if (currentPosition == position){
                     time = accumulateBinder.stopAccumulateTime();
-                    Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积的时间为"+String.valueOf(time));
+                    //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积的时间为"+String.valueOf(time));
                     isInService = false;
                     Glide.with(AccumulateTimeFragment.this).load(R.drawable.start).into((CircleImageView)view.findViewById(R.id.change_view));
                     t.setMinNums(t.getMinNums()+time);
-                    Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积后时间："+String.valueOf(t.getMinNums()));
+                    //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积后时间："+String.valueOf(t.getMinNums()));
                     adapter.notifyItemChanged(currentPosition);
                     t.update(t.getId());
                 }
@@ -108,15 +111,10 @@ public class AccumulateTimeFragment extends Fragment {
         timeItems = DataSupport.findAll(TimeItem.class);
     }
 
-
-
-
-
-
-    /*private void initItem(){
+    /*private void initItem2(){
         //timeItems.add(new TimeItem(1,"哈哈哈","哈哈哈",R.mipmap.sleeping, 50));
         //timeItems.add(new TimeItem(2,"呵呵呵","呵呵呵",R.mipmap.study, 60));
-        /*TimeItem t1 = new TimeItem();
+        TimeItem t1 = new TimeItem();
         t1.setItemTitle("哈哈哈");
         t1.setItemMessage("哈哈哈哈");
         t1.setImageId(R.mipmap.eating);
@@ -129,6 +127,7 @@ public class AccumulateTimeFragment extends Fragment {
         t2.setMinNums(60);
         t2.save();
         //DataSupport.deleteAll(TimeItem.class);
+        timeItems = DataSupport.findAll(TimeItem.class);
     }*/
     //替代构造函数的静态方法（预留）
     /*public static AccumulateTimeFragment newInstance(String param1){

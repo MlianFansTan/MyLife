@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -24,8 +25,16 @@ import org.tan.mylife.tomato.TomatoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+
+    /*
+     * Back button event
+     */
+    private static Boolean isExit = false;
+    private Timer backTimer = new Timer();
 
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
 
@@ -33,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private BottomNavigationBar bottomNavigationBar;
     private Toolbar toolbar;
 
-    int lastSelectedPosition = 0;
+    private int lastSelectedPosition = 0;
     private AccumulateTimeFragment accumulateTimeFragment;
     private TomatoFragment tomatoFragment;
     private DiaryFragment diaryFragment;
@@ -234,5 +243,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 break;
         }
         return true;
+    }
+
+
+    /*
+     *双击返回键退出
+     */
+    @Override
+    public void onBackPressed() {
+    if (!isExit){
+        isExit = true;
+        Toast.makeText(this, "再点一次推出哦~", Toast.LENGTH_SHORT).show();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                isExit = false;
+            }
+        };
+        backTimer.schedule(task, 2000);
+    }else {
+        super.onBackPressed();
+        }
     }
 }

@@ -13,8 +13,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        TimeItem timeItem = new TimeItem(1,"哈哈哈","哈哈哈",R.mipmap.sleeping, 50);
-        String str = timeItem.getMinNums()+"";
-        System.out.print(str);
+
     }
 }

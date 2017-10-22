@@ -64,6 +64,7 @@ public class AccumulateTask extends AsyncTask<String, Integer, Integer> {
     protected void onPostExecute(Integer integer) {
         switch (integer){
             case TYPE_PAUSED:
+                listener.pauseAccumulate();
                 break;
             case TYPE_STOP:
                 listener.onStop();
@@ -79,9 +80,5 @@ public class AccumulateTask extends AsyncTask<String, Integer, Integer> {
 
     public void stopAccumulateTime(){
         isStop = true;
-    }
-
-    public int returnTheTime(){
-        return acctumulatedTime;
     }
 }

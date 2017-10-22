@@ -1,6 +1,7 @@
 package org.tan.mylife.service;
 
 /**
+ * Server与Task交互的监听者
  * Created by a on 2017/10/17.
  */
 
