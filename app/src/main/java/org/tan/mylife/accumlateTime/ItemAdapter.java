@@ -58,6 +58,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public interface OnItemClickListener{
         //回调函数
         void onClick(View view, int position);
+
+        void onItemClick(int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
@@ -72,6 +74,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             mContent = parent.getContext();
         View view = LayoutInflater.from(mContent).inflate(R.layout.timeitem_accumlate, parent, false);
         final ViewHolder holder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(holder.getAdapterPosition());
+            }
+        });
         return holder;
     }
 

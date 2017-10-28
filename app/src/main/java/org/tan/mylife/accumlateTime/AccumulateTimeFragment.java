@@ -7,7 +7,10 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,10 +22,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.litepal.crud.DataSupport;
+import org.tan.mylife.MainActivity;
 import org.tan.mylife.R;
 import org.tan.mylife.service.AccumulateTimeService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,6 +42,10 @@ public class AccumulateTimeFragment extends Fragment {
 
     }
 
+    private Fragment itemManager;
+
+    private FloatingActionButton floatingActionButton;
+
     private List<TimeItem> timeItems = new ArrayList<>();
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
@@ -44,6 +53,8 @@ public class AccumulateTimeFragment extends Fragment {
     private Boolean isInService = false;        //服务是否正在运行的标志
     private int currentPosition;        //正在进行服务的项的position
     private int time;                   //服务停止时传入的累积时间
+
+    private int clickedPosition;        //被点击的某项
 
     //与服务进行连接的Binder
     private AccumulateTimeService.AccumulateBinder accumulateBinder;
@@ -61,23 +72,27 @@ public class AccumulateTimeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("Yes", "进入onCreateView方法");
         initItem();         //先从数据库拿到所有项的记录
-        Log.d("Yes", timeItems.get(1).getItemTitle());
+        //Log.d("Yes", timeItems.get(1).getItemTitle());
 
         //绑定是异步执行的，所以要先进行绑定，防止binder空指针
         Intent bindIntent = new Intent(getActivity(), AccumulateTimeService.class);
         getActivity().bindService(bindIntent, connection, Context.BIND_AUTO_CREATE);
-        Log.d("Yes", "绑定完成");
+        //Log.d("Yes", "绑定完成");
 
         View view = inflater.inflate(R.layout.fragment_accumlate, container, false);
+        initFab(view);      //初始化FloatingActionButton
+
         recyclerView = (RecyclerView) view.findViewById(R.id.accumulate_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ItemAdapter(timeItems);
         recyclerView.setAdapter(adapter);
         adapter.setmOnItemClickListener(new ItemAdapter.OnItemClickListener(){
+
+            //点击某项开始计时
             @Override
             public void onClick(View view, int position) {
                 TimeItem t = timeItems.get(position);
@@ -92,18 +107,79 @@ public class AccumulateTimeFragment extends Fragment {
                     Glide.with(AccumulateTimeFragment.this).load(R.drawable.end).into((CircleImageView)view.findViewById(R.id.change_view));
                 }else if (currentPosition == position){
                     time = accumulateBinder.stopAccumulateTime();
-                    //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积的时间为"+String.valueOf(time));
+                    Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积的时间为"+String.valueOf(time));
                     isInService = false;
                     Glide.with(AccumulateTimeFragment.this).load(R.drawable.start).into((CircleImageView)view.findViewById(R.id.change_view));
                     t.setMinNums(t.getMinNums()+time);
-                    //Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积后时间："+String.valueOf(t.getMinNums()));
+                    Log.d("Yes:"+AccumulateTimeFragment.class.toString(),"累积后时间："+String.valueOf(t.getMinNums()));
                     adapter.notifyItemChanged(currentPosition);
                     t.update(t.getId());
                 }
             }
+
+            //点击某项进入管理
+            @Override
+            public void onItemClick(int position) {
+                clickedPosition = position;
+                Intent intent = new Intent(getActivity(), ItemManeger.class);
+                intent.putExtra("acT_from", "itemClick");
+                intent.putExtra("item_from", timeItems.get(position));
+                startActivityForResult(intent, 1);
+            }
         });
 
         return view;
+    }
+
+    //初始化FloatingActionButton的逻辑
+    private void initFab(View view){
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(getActivity(), ItemManeger.class);
+                intent.putExtra("acT_from", "fab");
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if (resultCode == 10){
+                    Log.d("Yes","             返回数据了!");
+                    TimeItem item = (TimeItem) data.getParcelableExtra("save_date");
+                    Log.d("Yes",item.getItemTitle());
+                    item.save();
+                    TimeItem item1 = DataSupport.findLast(TimeItem.class);
+                    timeItems.add(item1);
+                    adapter.notifyDataSetChanged();
+                }
+                if (resultCode == 20){
+                    TimeItem t = timeItems.get(clickedPosition);
+                    TimeItem item2 = (TimeItem) data.getParcelableExtra("save_date");
+                    t.setItemTitle(item2.getItemTitle());
+                    t.setItemMessage(item2.getItemMessage());
+                    t.setImageId(item2.getImageId());
+                    t.setAimLevel(item2.getAimLevel());
+                    t.setAimHour(item2.getAimHour());
+                    t.setAimDate(item2.getAimDate());
+                    t.setEveryDayHour(item2.getEveryDayHour());
+                    adapter.notifyItemChanged(clickedPosition);
+                    t.update(t.getId());
+                }
+                if (resultCode == 30){
+                    TimeItem t = timeItems.get(clickedPosition);
+                    t.delete();
+                    timeItems.remove(clickedPosition);
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     //从数据库中得到timeItems
@@ -119,12 +195,20 @@ public class AccumulateTimeFragment extends Fragment {
         t1.setItemMessage("哈哈哈哈");
         t1.setImageId(R.mipmap.eating);
         t1.setMinNums(50);
+        t1.setAimLevel("业界Top5%");
+        t1.setAimHour("5400");
+        t1.setAimDate("2017-10-09");
+        t1.setEveryDayHour("8");
         t1.save();
         TimeItem t2 = new TimeItem();
         t2.setItemTitle("呵呵呵");
         t2.setItemMessage("呵呵呵");
         t2.setImageId(R.mipmap.game);
         t2.setMinNums(60);
+        t2.setAimLevel("考研");
+        t2.setAimHour("2500");
+        t2.setAimDate("2018-11-23");
+        t2.setEveryDayHour("5");
         t2.save();
         //DataSupport.deleteAll(TimeItem.class);
         timeItems = DataSupport.findAll(TimeItem.class);

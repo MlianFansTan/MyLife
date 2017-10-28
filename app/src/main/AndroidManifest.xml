@@ -24,6 +24,8 @@
             android:name=".service.AccumulateTimeService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".accumlateTime.ItemManeger"></activity>
     </application>
 
 </manifest>

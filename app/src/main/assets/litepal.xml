@@ -2,7 +2,8 @@
 <litepal>
     <dbname value="TimeItems" ></dbname>
 
-    <version value="3"></version>
+    <!-- version "5" 增添了Parcelable 并且完善了属性-->
+    <version value="5"></version>
 
     <list>
         <mapping class="org.tan.mylife.accumlateTime.TimeItem"></mapping>

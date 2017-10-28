@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
     }
 
