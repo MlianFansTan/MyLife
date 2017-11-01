@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -154,13 +156,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     transaction
                             .hide(currentFragment)
                             .add(R.id.tb, accumulateTimeFragment,""+currentIndex);
-                    toolbar.setBackgroundColor(Color.parseColor("#87CEFA"));
-                }else{
+                    }
+                else{
                     transaction
                             .hide(currentFragment)
                             .show(accumulateTimeFragment);
-                    toolbar.setBackgroundColor(Color.parseColor("#87CEFA"));
                 }
+                toolbar.setBackgroundColor(Color.parseColor("#87CEFA"));
                 currentFragment = accumulateTimeFragment;
                 break;
             case 1:
@@ -172,13 +174,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     transaction
                             .hide(currentFragment)
                             .add(R.id.tb, tomatoFragment,""+currentIndex);
-                    toolbar.setBackgroundColor(Color.parseColor("#FF4500"));
                 }else{
                     transaction
                             .hide(currentFragment)
                             .show(tomatoFragment);
-                    toolbar.setBackgroundColor(Color.parseColor("#FF4500"));
                 }
+                toolbar.setBackgroundColor(Color.parseColor("#FF4500"));
                 currentFragment = tomatoFragment;
                 break;
             case 2:
@@ -190,13 +191,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     transaction
                             .hide(currentFragment)
                             .add(R.id.tb, recordFragment,""+currentIndex);
-                    toolbar.setBackgroundColor(Color.parseColor("#4B0082"));
                 }else{
                     transaction
                             .hide(currentFragment)
                             .show(recordFragment);
-                    toolbar.setBackgroundColor(Color.parseColor("#4B0082"));
                 }
+                toolbar.setBackgroundColor(Color.parseColor("#4B0082"));
                 currentFragment = recordFragment;
                 break;
             case 3:
@@ -208,13 +208,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     transaction
                             .hide(currentFragment)
                             .add(R.id.tb, diaryFragment,""+currentIndex);
-                    toolbar.setBackgroundColor(Color.parseColor("#FFB6C1"));
                 }else{
                     transaction
                             .hide(currentFragment)
                             .show(diaryFragment);
-                    toolbar.setBackgroundColor(Color.parseColor("#FFB6C1"));
                 }
+                toolbar.setBackgroundColor(Color.parseColor("#FFB6C1"));
                 currentFragment = diaryFragment;
                 break;
             default:
@@ -244,7 +243,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         }
         return true;
     }
-
 
     /*
      *双击返回键退出

@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,14 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
 import org.litepal.crud.DataSupport;
 import org.tan.mylife.MainActivity;
 import org.tan.mylife.R;
 import org.tan.mylife.service.AccumulateTimeService;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,6 +44,7 @@ public class AccumulateTimeFragment extends Fragment {
     private Fragment itemManager;
 
     private FloatingActionButton floatingActionButton;
+    private SwipeRefreshLayout swipeRefresh;
 
     private List<TimeItem> timeItems = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -84,6 +84,7 @@ public class AccumulateTimeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_accumlate, container, false);
         initFab(view);      //初始化FloatingActionButton
+        initSwipRefresh(view);   //初始化swipRefresh
 
         recyclerView = (RecyclerView) view.findViewById(R.id.accumulate_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -129,6 +130,40 @@ public class AccumulateTimeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    //初始化SwipRefresh
+    private void initSwipRefresh(View view){
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                upload();
+            }
+        });
+    }
+
+    /**
+     * 下拉刷新，上传数据
+     */
+    private void upload(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "上传成功！", Toast.LENGTH_SHORT).show();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
     }
 
     //初始化FloatingActionButton的逻辑
@@ -184,35 +219,23 @@ public class AccumulateTimeFragment extends Fragment {
 
     //从数据库中得到timeItems
     private void initItem(){
-        timeItems = DataSupport.findAll(TimeItem.class);
+        if (DataSupport.isExist(TimeItem.class))
+            timeItems = DataSupport.findAll(TimeItem.class);
+        else{
+            TimeItem timeItem = new TimeItem();
+            timeItem.setItemTitle("高树高数");
+            timeItem.setItemMessage("难，但是还是有意思");
+            timeItem.setImageId(R.mipmap.study);
+            timeItem.setMinNums(240);
+            timeItem.setAimLevel("业界Top5%");
+            timeItem.setAimHour("5400");
+            timeItem.setAimDate("2017-10-09");
+            timeItem.setEveryDayHour("8");
+            timeItem.save();
+            timeItems = DataSupport.findAll(TimeItem.class);
+        }
     }
 
-    /*private void initItem2(){
-        //timeItems.add(new TimeItem(1,"哈哈哈","哈哈哈",R.mipmap.sleeping, 50));
-        //timeItems.add(new TimeItem(2,"呵呵呵","呵呵呵",R.mipmap.study, 60));
-        TimeItem t1 = new TimeItem();
-        t1.setItemTitle("哈哈哈");
-        t1.setItemMessage("哈哈哈哈");
-        t1.setImageId(R.mipmap.eating);
-        t1.setMinNums(50);
-        t1.setAimLevel("业界Top5%");
-        t1.setAimHour("5400");
-        t1.setAimDate("2017-10-09");
-        t1.setEveryDayHour("8");
-        t1.save();
-        TimeItem t2 = new TimeItem();
-        t2.setItemTitle("呵呵呵");
-        t2.setItemMessage("呵呵呵");
-        t2.setImageId(R.mipmap.game);
-        t2.setMinNums(60);
-        t2.setAimLevel("考研");
-        t2.setAimHour("2500");
-        t2.setAimDate("2018-11-23");
-        t2.setEveryDayHour("5");
-        t2.save();
-        //DataSupport.deleteAll(TimeItem.class);
-        timeItems = DataSupport.findAll(TimeItem.class);
-    }*/
     //替代构造函数的静态方法（预留）
     /*public static AccumulateTimeFragment newInstance(String param1){
         AccumulateTimeFragment fragment = new AccumulateTimeFragment();

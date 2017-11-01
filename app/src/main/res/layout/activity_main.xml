@@ -33,7 +33,6 @@
             android:layout_height="2dp"
             android:background="@drawable/tool_bar_shadow"/>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -42,7 +41,7 @@
                 android:id="@+id/tb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="56dp">
+                android:layout_marginBottom="50dp">
 
             </RelativeLayout>
 

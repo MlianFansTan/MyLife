@@ -3,9 +3,11 @@
     <dbname value="TimeItems" ></dbname>
 
     <!-- version "5" 增添了Parcelable 并且完善了属性-->
-    <version value="5"></version>
+    <!-- version "6" 增加了日记类-->
+    <version value="6"></version>
 
     <list>
         <mapping class="org.tan.mylife.accumlateTime.TimeItem"></mapping>
+        <mapping class="org.tan.mylife.diary.EntriesEntity"></mapping>
     </list>
 </litepal>

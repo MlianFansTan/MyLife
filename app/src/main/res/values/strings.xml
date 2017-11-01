@@ -8,4 +8,16 @@
         <string name="day">日</string>  
         <string name="hour">时</string>  
           <string name="minute">分</string>  
+
+    <string name="pull_to_refresh">下拉可以上传</string>
+    <string name="release_to_refresh">释放立即上传</string>
+    <string name="refreshing">正在上传…</string>
+    <string name="not_updated_yet">暂未上传过</string>
+    <string name="updated_at">上次上传于%1$s前</string>
+    <string name="updated_just_now">上传成功</string>
+    <string name="time_error">时间有问题</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
