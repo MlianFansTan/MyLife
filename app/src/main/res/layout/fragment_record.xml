@@ -1,7 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.percent.PercentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/record_vital_not_urgent"
+            android:layout_gravity="start|top"
+            app:layout_widthPercent="49%"
+            app:layout_heightPercent="49%">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/pink">
+
+                <ImageView
+                    android:id="@+id/Card_add_one"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                    android:id="@+id/record_title1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="重要不紧急"
+                    android:textColor="@color/color4"
+                    android:textSize="15sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/record_recyclerView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/record_title1">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/record_vital_urgent"
+            android:layout_gravity="end|top"
+            app:layout_widthPercent="49%"
+            app:layout_heightPercent="49%">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/hotpink">
+
+                <ImageView
+                    android:id="@+id/Card_add_two"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                    android:id="@+id/record_title2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="重要紧急"
+                    android:textColor="@color/color4"
+                    android:textSize="15sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/record_recyclerView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/record_title2">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/record_not_vital_not_urgent"
+            android:layout_gravity="start|bottom"
+            app:layout_widthPercent="49%"
+            app:layout_heightPercent="49%">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/button_disable_color">
+
+                <ImageView
+                    android:id="@+id/Card_add_three"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                    android:id="@+id/record_title3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="不重要不紧急"
+                    android:textColor="@color/color4"
+                    android:textSize="15sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/record_recyclerView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/record_title3">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/record_not_vital_urgent"
+            android:layout_gravity="end|bottom"
+            app:layout_widthPercent="49%"
+            app:layout_heightPercent="49%">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:id="@+id/Card_add_four"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                    android:id="@+id/record_title4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="紧急不重要"
+                    android:textColor="@color/color4"
+                    android:textSize="15sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/record_recyclerView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/record_title4">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+    </android.support.percent.PercentFrameLayout>
 </LinearLayout>
