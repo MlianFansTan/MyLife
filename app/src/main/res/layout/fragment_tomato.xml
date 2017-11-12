@@ -4,5 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <org.tan.mylife.tomato.MyTomato
+        android:id="@+id/tomato_circle"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"/>
+
+    <org.tan.mylife.tomato.MyRest
+        android:id="@+id/tomato_rest"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tomato_circle"/>
 
 </RelativeLayout>

@@ -223,13 +223,13 @@ public class AccumulateTimeFragment extends Fragment {
             timeItems = DataSupport.findAll(TimeItem.class);
         else{
             TimeItem timeItem = new TimeItem();
-            timeItem.setItemTitle("高树高数");
-            timeItem.setItemMessage("难，但是还是有意思");
+            timeItem.setItemTitle("高数刷分");
+            timeItem.setItemMessage("就当考研复习吧");
             timeItem.setImageId(R.mipmap.study);
             timeItem.setMinNums(240);
-            timeItem.setAimLevel("业界Top5%");
-            timeItem.setAimHour("5400");
-            timeItem.setAimDate("2017-10-09");
+            timeItem.setAimLevel("其它");
+            timeItem.setAimHour("500");
+            timeItem.setAimDate("2018-01-20");
             timeItem.setEveryDayHour("8");
             timeItem.save();
             timeItems = DataSupport.findAll(TimeItem.class);

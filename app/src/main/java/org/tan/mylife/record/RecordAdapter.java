@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.tan.mylife.R;
 import org.tan.mylife.record.dialogs.RecordDialog;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,12 +34,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView matter_record_simple;
+        TextView matter_remainDay;
         ImageView matter_record_delete;
 
         public ViewHolder(View view){
             super(view);
             matter_record_simple = (TextView) view.findViewById(R.id.matter_simple);
-            matter_record_delete = (ImageView) view.findViewById(R.id.IV_matter_delete);
+            matter_remainDay = (TextView) view.findViewById(R.id.matter_remain_day);
         }
     }
 
@@ -63,12 +65,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         Record record = mRecordList.get(position);
         holder.matter_record_simple.setText(record.getMatter());
-        holder.matter_record_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        try{
+            long remainTime = record.getMatterDate().getTime() - new Date(System.currentTimeMillis()).getTime();
+            long remainDay = remainTime/(1000 * 60 * 60 * 24);
+            String day = String.valueOf(remainDay) + "天";
+            holder.matter_remainDay.setText(day);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-            }
-        });
     }
 
     @Override

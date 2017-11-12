@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:background="@color/pink">
+                android:background="@color/khaki">
 
                 <ImageView
                     android:id="@+id/Card_add_one"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:background="@color/hotpink">
+                android:background="@color/chartreuse">
 
                 <ImageView
                     android:id="@+id/Card_add_two"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:background="@color/button_disable_color">
+                android:background="@color/blue">
 
                 <ImageView
                     android:id="@+id/Card_add_three"
@@ -142,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:background="@color/blue">
+                android:background="@color/pink">
 
                 <ImageView
                     android:id="@+id/Card_add_four"

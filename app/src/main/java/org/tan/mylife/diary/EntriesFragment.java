@@ -74,7 +74,7 @@ public class EntriesFragment extends Fragment implements DiaryViewerDialogFragme
             }
             EntriesEntity entity = new EntriesEntity();
             entity.setTitle("第一篇日记~");
-            entity.setSummary("本来今天很累的，但是我还是很高兴！");
+            entity.setSummary("最近雾霾好严重啊！");
             entity.setMoodImgId(0);
             entity.setWeatherImgId(4);
             if (date != null)

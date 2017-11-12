@@ -16,7 +16,9 @@
     <color name="text2">#333333</color>
     <color name="color4">#666666</color> 
     <color name="aquamarine">#7FFFD4</color>
-    <color name="hotpink">#FF69B4</color> 
+    <color name="hotpink">#FF69B4</color>
+    <color name="chartreuse">#7FFF00</color>
+    <color name="khaki">#F0E68C</color>
 
     <color name="button_disable_color">#9D9FA2</color>
 </resources>

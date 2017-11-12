@@ -106,7 +106,7 @@ public class AccumulateTimeService extends Service {
         remoteViews.setTextViewText(R.id.ntf_time, progress+"分钟");
         remoteViews.setImageViewResource(R.id.ntf_image,imageId);
         if (isInAccumulating == 1)
-            remoteViews.setImageViewResource(R.id.ntf_change,R.drawable.end);
+            remoteViews.setImageViewResource(R.id.ntf_change,R.drawable.pause);
         else if (isInAccumulating == 0)
             remoteViews.setImageViewResource(R.id.ntf_change,R.drawable.start);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
